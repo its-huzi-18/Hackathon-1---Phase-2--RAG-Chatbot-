@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.specify/scripts/bash/create-phr.sh:*)",
+      "Bash(.specify/scripts/bash/setup-plan.sh --json)",
+      "Bash(git branch -m 001-embedding-pipeline 002-embedding-pipeline)",
+      "Bash(dir /s)",
+      "Bash(dir)",
+      "Bash(dir /ad /s)",
+      "Bash(mkdir backend)",
+      "Bash(dir backend)",
+      "Bash(dir backend.env)",
+      "Bash(python main.py)",
+      "Bash(pip install -r backend/requirements.txt)",
+      "Bash(pip install requests beautifulsoup4 python-dotenv)",
+      "Bash(pip install cohere)",
+      "Bash(pip install qdrant-client)",
+      "Bash(pip install grpcio grpcio-tools)",
+      "Bash(python -c \"import requests, bs4; print\\(''Basic imports successful''\\)\")",
+      "Bash(uv run main.py)",
+      "Bash(pip install uv)",
+      "Bash(curl -LsSf https://astral.sh/uv/install.sh)",
+      "Bash(sh)",
+      "Bash(export PATH=\"$HOME/.local/bin:$PATH\")",
+      "Bash(uv pip list)",
+      "Bash(python -c \"import os; from dotenv import load_dotenv; load_dotenv\\(''.env''\\); print\\(''Environment loaded successfully''\\)\")",
+      "Bash(python -c \"\nimport os\nfrom dotenv import load_dotenv\nload_dotenv\\(''.env''\\)\n\n# Test basic imports\ntry:\n    import requests\n    import bs4\n    from bs4 import BeautifulSoup\n    print\\(''✅ Basic imports successful''\\)\nexcept ImportError as e:\n    print\\(f''❌ Import error: {e}''\\)\n\n# Check if environment variables are available\ncohere_key = os.getenv\\(''COHERE_API_KEY''\\)\nqdrant_url = os.getenv\\(''QDRANT_URL''\\)\nqdrant_key = os.getenv\\(''QDRANT_API_KEY''\\)\ntarget_url = os.getenv\\(''TARGET_URL''\\)\n\nif all\\([cohere_key, qdrant_url, qdrant_key, target_url]\\):\n    print\\(''✅ All environment variables found''\\)\nelse:\n    print\\(''❌ Missing environment variables''\\)\n    print\\(f''COHERE_API_KEY: {bool\\(cohere_key\\)}''\\)\n    print\\(f''QDRANT_URL: {bool\\(qdrant_url\\)}''\\)\n    print\\(f''QDRANT_API_KEY: {bool\\(qdrant_key\\)}''\\)\n    print\\(f''TARGET_URL: {bool\\(target_url\\)}''\\)\n\")",
+      "Bash(python -c \"\nimport os\nfrom dotenv import load_dotenv\nload_dotenv\\(''.env''\\)\n\n# Test basic imports\ntry:\n    import requests\n    import bs4\n    from bs4 import BeautifulSoup\n    print\\(''[SUCCESS] Basic imports successful''\\)\nexcept ImportError as e:\n    print\\(f''[ERROR] Import error: {e}''\\)\n\n# Check if environment variables are available\ncohere_key = os.getenv\\(''COHERE_API_KEY''\\)\nqdrant_url = os.getenv\\(''QDRANT_URL''\\)\nqdrant_key = os.getenv\\(''QDRANT_API_KEY''\\)\ntarget_url = os.getenv\\(''TARGET_URL''\\)\n\nif all\\([cohere_key, qdrant_url, qdrant_key, target_url]\\):\n    print\\(''[SUCCESS] All environment variables found''\\)\nelse:\n    print\\(''[ERROR] Missing environment variables''\\)\n    print\\(f''COHERE_API_KEY: {bool\\(cohere_key\\)}''\\)\n    print\\(f''QDRANT_URL: {bool\\(qdrant_url\\)}''\\)\n    print\\(f''QDRANT_API_KEY: {bool\\(qdrant_key\\)}''\\)\n    print\\(f''TARGET_URL: {bool\\(target_url\\)}''\\)\n\")",
+      "Bash(python test_setup.py)",
+      "Bash(timeout 30s uv run main.py)",
+      "Bash(python quick_test.py)",
+      "Bash(.venv/Scripts/python -c \"import sys; print\\(sys.path\\)\")",
+      "Bash(.venv/Scripts/pip install requests beautifulsoup4 python-dotenv)",
+      "Bash(python validate.py)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

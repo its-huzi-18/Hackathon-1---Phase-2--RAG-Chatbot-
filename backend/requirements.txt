@@ -1,0 +1,6 @@
+requests
+beautifulsoup4
+cohere
+qdrant-client
+python-dotenv
+typing-extensions

@@ -1,0 +1,12 @@
+{
+  // This file is not used in compilation. It is here just for a nice editor experience.
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    // Ensure editors/tsserver know to allow JSX in .tsx files.
+    "jsx": "preserve"
+    ,"types": ["react"]
+    ,"ignoreDeprecations": "6.0"
+  },
+  "exclude": [".docusaurus", "build"]
+}
