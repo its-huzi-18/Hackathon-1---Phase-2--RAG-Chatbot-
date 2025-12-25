@@ -109,7 +109,12 @@
       "Bash(python backend/api.py)",
       "Bash(curl -X POST \"http://localhost:8000/ask\" -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is this book about?\"\"}\")",
       "Bash(taskkill /pid 7928 /f)",
-      "Bash(curl -X POST \"http://localhost:8000/ask\" -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is AI?\"\"}\")"
+      "Bash(curl -X POST \"http://localhost:8000/ask\" -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is AI?\"\"}\")",
+      "Bash(del \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\my-book\\\\src\\\\pages\\\\api\\\\ask.ts\")",
+      "Bash(del /f \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\my-book\\\\src\\\\pages\\\\api\\\\ask.ts\")",
+      "Bash(dir \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\my-book\\\\src\\\\pages\")",
+      "Bash(rd /s /q \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\my-book\\\\src\\\\pages\\\\api\")",
+      "Bash(python backend/start_server.py)"
     ],
     "deny": [],
     "ask": []
