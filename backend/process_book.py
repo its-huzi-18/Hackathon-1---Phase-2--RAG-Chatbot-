@@ -210,7 +210,7 @@ def embed(texts: List[str]) -> List[List[float]]:
         logger.error(f"Error generating embeddings: {str(e)}")
         return []
 
-def create_collection(collection_name: str, vector_size: int = 512) -> bool:
+def create_collection(collection_name: str, vector_size: int = 1024) -> bool:
     """
     Create or recreate a Qdrant collection for storing embeddings
 

@@ -99,7 +99,17 @@
       "Bash(dir *.env*)",
       "Bash(dir backend*.env*)",
       "Bash(ls -la rag-book-chatbot*)",
-      "Bash(ls -la *.md)"
+      "Bash(ls -la *.md)",
+      "Bash(dir my-book)",
+      "Bash(dir my-booksrc)",
+      "Bash(dir \"my-book\\\\src\")",
+      "Bash(dir \"my-book\\\\src\\\\components\")",
+      "Bash(dir \"my-book\\\\src\\\\components\" /s)",
+      "Bash(python backend/process_book.py)",
+      "Bash(python backend/api.py)",
+      "Bash(curl -X POST \"http://localhost:8000/ask\" -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is this book about?\"\"}\")",
+      "Bash(taskkill /pid 7928 /f)",
+      "Bash(curl -X POST \"http://localhost:8000/ask\" -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is AI?\"\"}\")"
     ],
     "deny": [],
     "ask": []

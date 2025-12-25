@@ -15,6 +15,10 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import SearchRequest
 from qdrant_client.http import models
 import uvicorn
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -103,7 +107,7 @@ def embed_query(query: str) -> List[float]:
         logger.error(f"Error generating query embedding: {str(e)}")
         # Return a default response instead of raising an exception
         logger.warning("Returning default response due to embedding error")
-        return [0.0] * 512  # Return a 512-dimensional zero vector as fallback
+        return [0.0] * 1024  # Return a 1024-dimensional zero vector as fallback
 
 def search_similar_chunks(query_embedding: List[float], collection_name: str, top_k: int = 5) -> List[Dict[str, Any]]:
     """
@@ -183,7 +187,7 @@ def generate_response(query: str, context_chunks: List[Dict[str, Any]]) -> str:
     try:
         response = co.chat(
             message=message,
-            model="command",  # Using standard command model
+            model="command-r-08-2024",  # Using specific version of command model
             max_tokens=500,
             temperature=0.3
         )
