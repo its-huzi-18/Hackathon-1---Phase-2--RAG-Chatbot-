@@ -6,3 +6,4 @@ python-dotenv
 fastapi>=0.100.0
 uvicorn[standard]>=0.20.0
 pydantic>=2.0
+# Dependencies updated for Railway deployment compatibility
