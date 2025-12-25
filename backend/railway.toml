@@ -1,0 +1,10 @@
+# Railway configuration
+[build]
+  builder = "NIXPACKS"
+  buildCommand = "cd backend && pip install -r requirements.txt"
+  startCommand = "cd backend && python start_server.py"
+
+[deploy]
+  numReplicas = 1
+  region = "us-west"
+  healthcheckPath = "/"

@@ -3,8 +3,10 @@
 Start script for the RAG Chatbot API on Railway
 """
 import os
-from api import app
 import uvicorn
+
+# Import the app from the backend directory (since we're running from backend)
+from api import app
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))

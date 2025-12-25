@@ -5,9 +5,9 @@
 [phases.build]
   dependsOn = ["setup"]
   cmds = [
-    "pip install -r requirements.txt"
+    "cd backend && pip install -r requirements.txt"
   ]
 
 [phases.start]
   dependsOn = ["build"]
-  cmd = "python start_server.py"
+  cmd = "python ../start_server.py"
