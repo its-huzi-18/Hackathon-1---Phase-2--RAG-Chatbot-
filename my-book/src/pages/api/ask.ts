@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import cohere from 'cohere-ai';
-import { QdrantClient } from '@qdrant/js-client';
+import { QdrantClient } from '@qdrant/js-client-rest';
 
 interface AskRequest {
   question: string;
