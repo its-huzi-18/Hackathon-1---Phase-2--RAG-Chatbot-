@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Physical AI & Humanoid Robotics',
+  title: 'Advanced Robotics & AI',
   tagline: 'Empowering the next generation of AI and Robotics innovators',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon-new.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -32,6 +32,11 @@ const config: Config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+
+  // Custom fields
+  customFields: {
+    ragChatbotApiUrl: process.env.RAG_CHATBOT_API_URL || 'http://localhost:8000',
   },
 
   presets: [
@@ -67,6 +72,38 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    // Plugin to inject the chatbot script with proper API URL
+    function injectChatbotPlugin() {
+      return {
+        name: 'inject-chatbot',
+        injectHtmlTags() {
+          return {
+            postBodyTags: [
+              // Set the API URL as a script to make it available globally
+              {
+                tagName: 'script',
+                innerHTML: `
+                  window.RAG_CHATBOT_API_URL = "${
+                    process.env.RAG_CHATBOT_API_URL || 'http://localhost:8000'
+                  }";
+                `,
+              },
+              // Load the chatbot UI after the API URL is set
+              {
+                tagName: 'script',
+                attributes: {
+                  src: '/rag-chatbot.js',
+                  async: true,
+                },
+              }
+            ],
+          };
+        },
+      };
+    },
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
@@ -74,10 +111,10 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Physical AI & Humanoid Robotics',
+      title: 'Advanced Robotics & AI',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Advanced Robotics & AI Logo',
+        src: 'img/logo-professional.svg',
       },
       items: [
       ],
@@ -108,7 +145,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. All rights reserved.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Advanced Robotics & AI. All rights reserved.`,
     },
     prism: {
       theme: prismThemes.github,

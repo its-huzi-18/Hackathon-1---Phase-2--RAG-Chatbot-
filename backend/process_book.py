@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-RAG Chatbot Backend Implementation
-This script handles fetching content from URLs, embedding it, and storing in Qdrant vector database.
+Script to process the book content and populate the vector database
+This script will extract content from your Docusaurus site and create embeddings
 """
 
 import os
@@ -14,6 +14,10 @@ from qdrant_client.http.models import Distance, VectorParams, PointStruct
 import uuid
 from typing import List, Dict, Any
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -60,16 +64,23 @@ def get_all_urls(base_url: str) -> List[str]:
         response.raise_for_status()
 
         soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find all links in navigation, sidebar, and main content
         links = soup.find_all('a', href=True)
 
         urls = set()  # Use set to avoid duplicates
+        base_netloc = urlparse(base_url).netloc
+
         for link in links:
             href = link['href']
+            # Convert relative URLs to absolute
             full_url = urljoin(base_url, href)
 
-            # Only add URLs that belong to the same domain
-            if urlparse(full_url).netloc == urlparse(base_url).netloc:
-                urls.add(full_url)
+            # Only add URLs that belong to the same domain and are internal
+            if urlparse(full_url).netloc == base_netloc:
+                # Filter out external links, just keep internal ones
+                if href.startswith('/') or base_url in full_url:
+                    urls.add(full_url)
 
         # Add the base URL itself
         urls.add(base_url)
@@ -103,11 +114,32 @@ def extract_text_from_url(url: str) -> str:
         for script in soup(["script", "style"]):
             script.decompose()
 
-        # Get text content
-        text = soup.get_text()
+        # Focus on main content areas for Docusaurus sites
+        # Look for main content containers first
+        content_selectors = [
+            'main',  # Main content area
+            '.main-wrapper',  # Common Docusaurus wrapper
+            '.container',  # Container elements
+            '.markdown',  # Markdown content
+            'article',  # Article elements
+            '.theme-doc-markdown',  # Docusaurus markdown theme
+            '.doc-content',  # Documentation content
+        ]
+
+        text_content = ""
+        for selector in content_selectors:
+            elements = soup.select(selector)
+            if elements:
+                for element in elements:
+                    text_content += element.get_text() + "\n\n"
+                break  # Use the first matching selector
+
+        # If no specific content found, get all text
+        if not text_content.strip():
+            text_content = soup.get_text()
 
         # Clean up text - remove extra whitespace
-        lines = (line.strip() for line in text.splitlines())
+        lines = (line.strip() for line in text_content.splitlines())
         chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
         text = ' '.join(chunk for chunk in chunks if chunk)
 
@@ -255,21 +287,21 @@ def save_chunk_to_qdrant(collection_name: str, text_chunk: str, embedding: List[
     except Exception as e:
         logger.error(f"Error saving chunk to Qdrant: {str(e)}")
 
-def main():
+def process_book():
     """
-    Main function to execute the RAG pipeline
+    Main function to process the book content and populate the vector database
     """
-    logger.info("Starting RAG pipeline execution")
+    logger.info("Starting book processing pipeline")
 
     # Get the target URL from environment variable
-    target_url = os.getenv("TARGET_URL", "https://hakhton-ai-textbook.vercel.app/")
+    target_url = os.getenv("TARGET_URL", "https://physical-ai-humanoid-robotics.vercel.app/")
 
-    # Step 1: Get all URLs
+    # Step 1: Get all URLs from the book website
     urls = get_all_urls(target_url)
-    logger.info(f"Processing {len(urls)} URLs")
+    logger.info(f"Processing {len(urls)} URLs from the book")
 
     # Step 2: Define collection name
-    collection_name = "book_knowledge_base"
+    collection_name = "book_knowledge_base"  # Changed to be more specific
 
     # Step 3: Create collection
     if not create_collection(collection_name):
@@ -277,6 +309,7 @@ def main():
         return
 
     # Step 4: Process each URL
+    processed_count = 0
     for i, url in enumerate(urls):
         logger.info(f"Processing URL {i+1}/{len(urls)}: {url}")
 
@@ -303,12 +336,16 @@ def main():
                 "source_url": url,
                 "chunk_index": j,
                 "total_chunks": len(text_chunks),
-                "created_at": str(uuid.uuid4())
+                "processed_at": str(uuid.uuid4())
             }
 
             save_chunk_to_qdrant(collection_name, chunk, embedding, metadata)
 
-    logger.info("RAG pipeline completed successfully!")
+        processed_count += 1
+        logger.info(f"Completed processing URL {i+1}/{len(urls)}")
+
+    logger.info(f"Book processing completed! Processed {processed_count}/{len(urls)} URLs successfully.")
+    logger.info(f"All content has been stored in the '{collection_name}' collection.")
 
 if __name__ == "__main__":
-    main()
+    process_book()

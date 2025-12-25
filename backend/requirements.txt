@@ -4,3 +4,9 @@ cohere
 qdrant-client
 python-dotenv
 typing-extensions
+fastapi
+uvicorn[standard]
+pydantic
+langchain
+langchain-community
+langchain-core

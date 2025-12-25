@@ -8,16 +8,147 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-light));
+  color: white;
+}
+
+.heroLogoContainer {
+  margin-bottom: 1.5rem;
+}
+
+.heroLogo {
+  height: 180px;
+  width: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 2rem 1rem;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero__title {
+    font-size: 1.8rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
   }
 }
 
 .buttons {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 996px) {
+  .buttons {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .button--lg {
+    width: 100%;
+  }
+}
+
+.features {
+  padding: 4rem 0;
+}
+
+.featureImage {
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+  margin: 1rem 0;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+@media screen and (max-width: 996px) {
+  .featureImage {
+    height: 120px;
+    width: 120px;
+  }
+}
+
+.features h3 {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.features p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+@media screen and (max-width: 996px) {
+  .features p {
+    font-size: 0.9rem;
+  }
+}
+
+[data-theme='dark'] .features p {
+  color: #bbb;
+}
+
+[data-theme='dark'] .heroBanner {
+  background: linear-gradient(135deg, var(--ifm-color-primary-darker), var(--ifm-color-primary));
+}
+
+/* Responsive grid for features */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -1rem;
+}
+
+.col {
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+
+.col--4 {
+  flex: 0 0 33.333%;
+  max-width: 33.333%;
+}
+
+@media screen and (max-width: 996px) {
+  .col--4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.text--center {
+  text-align: center;
+}
+
+.padding-horiz--md {
+  padding: 0 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .padding-horiz--md {
+    padding: 0 0.5rem;
+  }
 }

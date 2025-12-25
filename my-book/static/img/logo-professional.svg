@@ -1,0 +1,54 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a365d" />
+      <stop offset="100%" stop-color="#2a5680" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a76a8" />
+      <stop offset="100%" stop-color="#4a96d0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Robot head -->
+  <rect x="70" y="60" width="60" height="60" rx="10" fill="url(#gradient1)" stroke="#142a48" stroke-width="2"/>
+
+  <!-- Robot eyes -->
+  <circle cx="85" cy="85" r="6" fill="#e2e8f0"/>
+  <circle cx="115" cy="85" r="6" fill="#e2e8f0"/>
+  <circle cx="85" cy="85" r="3" fill="#38a169"/>
+  <circle cx="115" cy="85" r="3" fill="#38a169"/>
+
+  <!-- Antenna -->
+  <line x1="100" y1="55" x2="100" y2="40" stroke="#2d3748" stroke-width="3"/>
+  <circle cx="100" cy="35" r="5" fill="#3182ce"/>
+
+  <!-- Body -->
+  <rect x="80" y="125" width="40" height="50" rx="5" fill="url(#gradient2)" stroke="#142a48" stroke-width="2"/>
+
+  <!-- Arms -->
+  <line x1="75" y1="135" x2="60" y2="150" stroke="#2d3748" stroke-width="5" stroke-linecap="round"/>
+  <line x1="125" y1="135" x2="140" y2="150" stroke="#2d3748" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Legs -->
+  <line x1="85" y1="175" x2="85" y2="190" stroke="#2d3748" stroke-width="5" stroke-linecap="round"/>
+  <line x1="115" y1="175" x2="115" y2="190" stroke="#2d3748" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- AI Circuit Pattern -->
+  <path d="M90 100 Q100 95 110 100" stroke="#38a169" stroke-width="2" fill="none"/>
+  <path d="M95 105 Q100 102 105 105" stroke="#38a169" stroke-width="1" fill="none"/>
+
+  <!-- Technology Grid -->
+  <g stroke="#3182ce" stroke-width="1" opacity="0.3">
+    <line x1="75" y1="65" x2="125" y2="65"/>
+    <line x1="75" y1="75" x2="125" y2="75"/>
+    <line x1="75" y1="85" x2="125" y2="85"/>
+    <line x1="75" y1="95" x2="125" y2="95"/>
+    <line x1="75" y1="105" x2="125" y2="105"/>
+    <line x1="80" y1="60" x2="80" y2="120"/>
+    <line x1="90" y1="60" x2="90" y2="120"/>
+    <line x1="100" y1="60" x2="100" y2="120"/>
+    <line x1="110" y1="60" x2="110" y2="120"/>
+    <line x1="120" y1="60" x2="120" y2="120"/>
+  </g>
+</svg>
