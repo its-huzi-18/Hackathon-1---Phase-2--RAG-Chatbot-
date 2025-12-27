@@ -36,7 +36,7 @@ const config: Config = {
 
   // Custom fields
   customFields: {
-    ragChatbotApiUrl: process.env.RAG_CHATBOT_API_URL || process.env.NEXT_PUBLIC_RAG_CHATBOT_API_URL || 'https://your-deployed-backend-url.com',  // Set this during deployment
+    ragChatbotApiUrl: process.env.RAG_CHATBOT_API_URL || process.env.NEXT_PUBLIC_RAG_CHATBOT_API_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'https://your-deployed-backend-url.com',  // Set this during deployment
   },
 
   presets: [
@@ -85,7 +85,7 @@ const config: Config = {
                 tagName: 'script',
                 innerHTML: `
                   window.RAG_CHATBOT_API_URL = "${
-                    process.env.RAG_CHATBOT_API_URL || process.env.NEXT_PUBLIC_RAG_CHATBOT_API_URL || 'https://your-deployed-backend-url.com'
+                    process.env.RAG_CHATBOT_API_URL || process.env.NEXT_PUBLIC_RAG_CHATBOT_API_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'https://your-deployed-backend-url.com'
                   }";
                 `,
               },
