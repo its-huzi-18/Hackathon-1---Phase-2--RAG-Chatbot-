@@ -115,7 +115,11 @@
       "Bash(dir \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\my-book\\\\src\\\\pages\")",
       "Bash(rd /s /q \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\my-book\\\\src\\\\pages\\\\api\")",
       "Bash(python backend/start_server.py)",
-      "Bash(del \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\start_server.py\")"
+      "Bash(del \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\Hackathon 1 – Phase 2 \\(RAG Chatbot\\)\\\\start_server.py\")",
+      "Bash(python -m uvicorn api:app --host 0.0.0.0 --port 8000)",
+      "Bash(python test_chatbot.py)",
+      "Bash(curl http://localhost:8000/health)",
+      "Bash(curl -X POST http://localhost:8000/ask -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is this book about?\"\"}\")"
     ],
     "deny": [],
     "ask": []
