@@ -86,6 +86,28 @@ document.addEventListener('DOMContentLoaded', function() {
       overflow-y: auto;
       padding: 15px;
       background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      max-height: 300px; /* Set a max height to force scrollbar when needed */
+    }
+
+    /* Add scrollbar styling */
+    .rag-chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .rag-chat-messages::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .rag-chat-messages::-webkit-scrollbar-thumb {
+      background: #c5c5c5;
+      border-radius: 10px;
+    }
+
+    .rag-chat-messages::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
     }
 
     .rag-message {
@@ -93,17 +115,20 @@ document.addEventListener('DOMContentLoaded', function() {
       padding: 8px 12px;
       border-radius: 8px;
       max-width: 80%;
+      word-wrap: break-word;
+      align-self: flex-start; /* Default alignment for assistant messages */
     }
 
     .rag-user-message {
       background: #e3f2fd;
+      align-self: flex-end; /* Right align user messages */
       margin-left: auto;
       text-align: right;
     }
 
     .rag-assistant-message {
       background: #f1f1f1;
-      margin-right: auto;
+      align-self: flex-start; /* Left align assistant messages */
     }
 
     .rag-typing-indicator {
@@ -189,7 +214,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Scroll to bottom of chat
   function scrollToBottom() {
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Use smooth scrolling for better UX
+    chatMessages.scrollTo({
+      top: chatMessages.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  // Scroll to top of chat
+  function scrollToTop() {
+    chatMessages.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
   // Add typing indicator
