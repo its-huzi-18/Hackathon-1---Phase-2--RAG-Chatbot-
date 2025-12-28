@@ -124,7 +124,8 @@ def search_similar_chunks(query_embedding: List[float], collection_name: str, to
     logger.info(f"Searching for similar chunks in collection '{collection_name}', top_k={top_k}")
 
     try:
-        search_result = client.search(
+        # Use search_points method which is the correct method for newer versions of qdrant-client
+        search_result = client.search_points(
             collection_name=collection_name,
             query_vector=query_embedding,
             limit=top_k,
@@ -132,7 +133,7 @@ def search_similar_chunks(query_embedding: List[float], collection_name: str, to
         )
 
         results = []
-        for point in search_result:
+        for point in search_result.points:
             results.append({
                 "text": point.payload.get("text", ""),
                 "metadata": point.payload.get("metadata", {}),
