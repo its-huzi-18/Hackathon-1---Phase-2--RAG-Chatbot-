@@ -45,15 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .rag-chat-header {
-      background: #4f5cf5;
+      background: #0b7b41; /* WhatsApp header green */
       color: white;
-      padding: 10px;
+      padding: 12px 15px;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      font-weight: 500;
     }
 
     .rag-chat-header h3 {
@@ -111,24 +112,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .rag-message {
-      margin-bottom: 15px;
-      padding: 8px 12px;
-      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 10px 14px;
+      border-radius: 18px;
       max-width: 80%;
       word-wrap: break-word;
       align-self: flex-start; /* Default alignment for assistant messages */
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      font-size: 14px;
+      line-height: 1.4;
     }
 
     .rag-user-message {
-      background: #e3f2fd;
+      background: #0b7b41; /* WhatsApp green color */
+      color: white;
       align-self: flex-end; /* Right align user messages */
       margin-left: auto;
       text-align: right;
+      border-bottom-right-radius: 4px; /* Rounded corners like WhatsApp */
     }
 
     .rag-assistant-message {
-      background: #f1f1f1;
+      background: #e5ddd5; /* WhatsApp chat background color */
+      color: #333;
       align-self: flex-start; /* Left align assistant messages */
+      border-bottom-left-radius: 4px; /* Rounded corners like WhatsApp */
     }
 
     .rag-typing-indicator {
@@ -139,34 +147,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
     .rag-input-area {
       display: flex;
-      padding: 10px;
-      border-top: 1px solid #eee;
+      padding: 8px 10px;
+      border-top: 1px solid #e0e0e0;
       background: white;
     }
 
     .rag-question-input {
       flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      margin-right: 10px;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 18px;
+      margin-right: 8px;
       resize: none;
       overflow: hidden;
       font-family: Arial, sans-serif;
       font-size: 14px;
+      outline: none;
+    }
+
+    .rag-question-input:focus {
+      border-color: #0b7b41;
+      box-shadow: 0 0 0 1px #0b7b41;
     }
 
     .rag-send-btn {
-      padding: 8px 15px;
-      background: #4f5cf5;
+      padding: 10px 16px;
+      background: #0b7b41; /* WhatsApp green */
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 18px;
       cursor: pointer;
+      font-weight: 500;
     }
 
     .rag-send-btn:hover:not(:disabled) {
-      background: #3a46c4;
+      background: #0a6a39;
     }
 
     .rag-send-btn:disabled {
