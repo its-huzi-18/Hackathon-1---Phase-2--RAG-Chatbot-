@@ -245,7 +245,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Remove typing indicator and add response
       removeTypingIndicator();
-      addMessage(Date.now() + 1, 'assistant', data.response);
+      // The /ask endpoint returns 'answer' field, not 'response'
+      const messageText = data.answer || data.response || 'Sorry, I could not generate a response.';
+      addMessage(Date.now() + 1, 'assistant', messageText);
     } catch (error) {
       removeTypingIndicator();
       addMessage(Date.now() + 1, 'assistant', 'Sorry, I encountered an error processing your question. Please try again.');
