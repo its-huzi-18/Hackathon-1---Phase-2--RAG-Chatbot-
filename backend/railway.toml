@@ -1,11 +1,12 @@
 # Railway configuration for the backend
 [build]
-  builder = "NIXPACKS"
-  workdir = "."
-  buildCommand = "pip install -r requirements.txt"
-  startCommand = "python start_server.py"
+builder = "NIXPACKS"
+workdir = "."
+buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-  numReplicas = 1
-  region = "us-west"
-  healthcheckPath = "/"
+startCommand = "uvicorn app:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/"
+numReplicas = 1
+region = "us-west"
+
