@@ -199,30 +199,27 @@ def generate_response(query: str, context_chunks: List[Dict[str, Any]]) -> str:
         logger.warning("No context chunks found for the query")
         return "I couldn't find relevant information in the book to answer your question. Please try rephrasing or ask about a different topic from the book."
 
-    # Combine context chunks into a single context string
-    context = "\n\n".join([chunk["text"] for chunk in context_chunks])
+    # Use only the top 2 most relevant chunks to make response faster
+    top_chunks = context_chunks[:2]
+    context = "\n\n".join([chunk["text"] for chunk in top_chunks])
 
-    # Create a message for the chat model
+    # Create a more concise message for faster processing
     message = f"""
-    You are an AI assistant for the AI Textbook. Your purpose is to answer questions about the book content.
-    Answer the user's question based on the context provided below.
+    You are an AI assistant for the AI Textbook. Answer the user's question based on the context provided.
 
-    Context information is below:
-    ---------------------
-    {context}
-    ---------------------
+    Context: {context}
 
-    User Query: {query}
+    Question: {query}
 
-    Provide a helpful and accurate answer based on the context. If the context doesn't contain the information needed to answer the question, say so clearly. Always be helpful and reference the book content when possible.
+    Provide a concise, accurate answer based on the context.
     """
 
     try:
         response = co.chat(
             message=message,
             model="command-r-08-2024",  # Using specific version of command model
-            max_tokens=500,
-            temperature=0.3
+            max_tokens=250,  # Reduced from 500 to 250 for faster response
+            temperature=0.2  # Lower temperature for more consistent responses
         )
 
         generated_text = response.text.strip()
