@@ -124,8 +124,9 @@ def search_similar_chunks(query_embedding: List[float], collection_name: str, to
     logger.info(f"Searching for similar chunks in collection '{collection_name}', top_k={top_k}")
 
     try:
-        # Use search_points method which is the correct method for newer versions of qdrant-client
-        search_result = client.search_points(
+        # Use search method - different versions of qdrant-client may have different method names
+        # Let's use the standard search method with proper parameters
+        search_result = client.search(
             collection_name=collection_name,
             query_vector=query_embedding,
             limit=top_k,
@@ -133,7 +134,7 @@ def search_similar_chunks(query_embedding: List[float], collection_name: str, to
         )
 
         results = []
-        for point in search_result.points:
+        for point in search_result:
             results.append({
                 "text": point.payload.get("text", ""),
                 "metadata": point.payload.get("metadata", {}),
@@ -143,6 +144,55 @@ def search_similar_chunks(query_embedding: List[float], collection_name: str, to
         logger.info(f"Found {len(results)} similar chunks")
         return results
 
+    except AttributeError as e:
+        logger.error(f"AttributeError in Qdrant search: {str(e)}")
+        # Try alternative method names
+        try:
+            # Some versions use search_points
+            search_result = client.search_points(
+                collection_name=collection_name,
+                query_vector=query_embedding,
+                limit=top_k,
+                with_payload=True
+            )
+
+            results = []
+            for point in search_result.points:
+                results.append({
+                    "text": point.payload.get("text", ""),
+                    "metadata": point.payload.get("metadata", {}),
+                    "score": point.score
+                })
+
+            logger.info(f"Found {len(results)} similar chunks using search_points")
+            return results
+        except:
+            try:
+                # Some versions might use recommend or other methods
+                from qdrant_client.http.models import SearchRequest
+                search_result = client.search_batch(
+                    collection_name=collection_name,
+                    requests=[SearchRequest(
+                        vector=query_embedding,
+                        limit=top_k,
+                        with_payload=True
+                    )]
+                )
+
+                results = []
+                if search_result and len(search_result) > 0:
+                    for point in search_result[0]:
+                        results.append({
+                            "text": point.payload.get("text", ""),
+                            "metadata": point.payload.get("metadata", {}),
+                            "score": point.score
+                        })
+
+                logger.info(f"Found {len(results)} similar chunks using search_batch")
+                return results
+            except Exception as final_error:
+                logger.error(f"All search methods failed: {str(final_error)}")
+                return []
     except Exception as e:
         logger.error(f"Error searching in Qdrant: {str(e)}")
         # Return empty results instead of raising an exception
