@@ -11,7 +11,7 @@ function initializeRAGChatbot() {
     <div id="rag-chatbot-container" class="rag-chatbot-container closed">
       <div class="rag-chat-header">
         <h3>Book Assistant</h3>
-        <button id="rag-toggle-btn" class="rag-toggle-btn">✕</button>
+        <button id="rag-toggle-btn" class="rag-toggle-btn">💬</button>
       </div>
       <div id="rag-chat-body" class="rag-chat-body" style="display: none;">
         <div id="rag-chat-messages" class="rag-chat-messages"></div>
@@ -258,7 +258,7 @@ function initializeRAGChatbot() {
   function toggleChat() {
     isOpen = !isOpen;
     chatBody.style.display = isOpen ? 'block' : 'none';
-    toggleBtn.textContent = isOpen ? '✕' : '^';
+    toggleBtn.textContent = isOpen ? '✕' : '💬';
   }
 
   toggleBtn.addEventListener('click', toggleChat);
