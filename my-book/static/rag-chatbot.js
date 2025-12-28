@@ -17,7 +17,7 @@ function initializeRAGChatbot() {
         <div id="rag-chat-messages" class="rag-chat-messages"></div>
         <div class="rag-input-area">
           <textarea id="rag-question-input" class="rag-question-input" placeholder="Ask a question about the book..."></textarea>
-          <button id="rag-send-btn" class="rag-send-btn">Send</button>
+          <button id="rag-send-btn" class="rag-send-btn">Send ↗</button>
         </div>
       </div>
     </div>
@@ -214,23 +214,31 @@ function initializeRAGChatbot() {
       cursor: pointer;
       font-weight: 600;
       font-size: 14px;
-      transition: background 0.2s ease, transform 0.1s ease;
+      transition: all 0.2s ease;
       min-width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(79, 92, 245, 0.3);
     }
 
     .rag-send-btn:hover:not(:disabled) {
       background: #3a46c4;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(79, 92, 245, 0.4);
     }
 
     .rag-send-btn:active:not(:disabled) {
       transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(79, 92, 245, 0.3);
     }
 
     .rag-send-btn:disabled {
       background: #cbd5e1;
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
     }
   `;
   document.head.appendChild(style);
