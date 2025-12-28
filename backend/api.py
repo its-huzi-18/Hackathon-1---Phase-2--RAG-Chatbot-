@@ -123,81 +123,71 @@ def search_similar_chunks(query_embedding: List[float], collection_name: str, to
     """
     logger.info(f"Searching for similar chunks in collection '{collection_name}', top_k={top_k}")
 
-    try:
-        # Use search method - different versions of qdrant-client may have different method names
-        # Let's use the standard search method with proper parameters
-        search_result = client.search(
+    # Define a list of possible search methods to try
+    search_methods = [
+        # Method 1: Try the standard search method
+        lambda: client.search(
+            collection_name=collection_name,
+            query_vector=query_embedding,
+            limit=top_k,
+            with_payload=True
+        ),
+        # Method 2: Try search_points method
+        lambda: client.search_points(
+            collection_name=collection_name,
+            query_vector=query_embedding,
+            limit=top_k,
+            with_payload=True
+        ),
+        # Method 3: Try with different parameters
+        lambda: client.search(
             collection_name=collection_name,
             query_vector=query_embedding,
             limit=top_k,
             with_payload=True
         )
+    ]
 
-        results = []
-        for point in search_result:
-            results.append({
-                "text": point.payload.get("text", ""),
-                "metadata": point.payload.get("metadata", {}),
-                "score": point.score
-            })
+    method_names = ["search", "search_points", "search (alt)"]
 
-        logger.info(f"Found {len(results)} similar chunks")
-        return results
-
-    except AttributeError as e:
-        logger.error(f"AttributeError in Qdrant search: {str(e)}")
-        # Try alternative method names
+    for i, (method, method_name) in enumerate(zip(search_methods, method_names)):
         try:
-            # Some versions use search_points
-            search_result = client.search_points(
-                collection_name=collection_name,
-                query_vector=query_embedding,
-                limit=top_k,
-                with_payload=True
-            )
+            logger.info(f"Trying {method_name} method...")
+            search_result = method()
 
+            # Process results based on the method used
             results = []
-            for point in search_result.points:
-                results.append({
-                    "text": point.payload.get("text", ""),
-                    "metadata": point.payload.get("metadata", {}),
-                    "score": point.score
-                })
+            if method_name == "search_points":
+                # For search_points, access results via .points
+                for point in search_result.points:
+                    results.append({
+                        "text": point.payload.get("text", ""),
+                        "metadata": point.payload.get("metadata", {}),
+                        "score": point.score
+                    })
+            else:
+                # For search methods, iterate directly
+                for point in search_result:
+                    results.append({
+                        "text": point.payload.get("text", ""),
+                        "metadata": point.payload.get("metadata", {}),
+                        "score": point.score
+                    })
 
-            logger.info(f"Found {len(results)} similar chunks using search_points")
+            logger.info(f"Found {len(results)} similar chunks using {method_name}")
             return results
-        except:
-            try:
-                # Some versions might use recommend or other methods
-                from qdrant_client.http.models import SearchRequest
-                search_result = client.search_batch(
-                    collection_name=collection_name,
-                    requests=[SearchRequest(
-                        vector=query_embedding,
-                        limit=top_k,
-                        with_payload=True
-                    )]
-                )
 
-                results = []
-                if search_result and len(search_result) > 0:
-                    for point in search_result[0]:
-                        results.append({
-                            "text": point.payload.get("text", ""),
-                            "metadata": point.payload.get("metadata", {}),
-                            "score": point.score
-                        })
+        except AttributeError as e:
+            logger.info(f"Method {method_name} failed: {str(e)}")
+            continue
+        except Exception as e:
+            logger.info(f"Method {method_name} failed with general error: {str(e)}")
+            continue
 
-                logger.info(f"Found {len(results)} similar chunks using search_batch")
-                return results
-            except Exception as final_error:
-                logger.error(f"All search methods failed: {str(final_error)}")
-                return []
-    except Exception as e:
-        logger.error(f"Error searching in Qdrant: {str(e)}")
-        # Return empty results instead of raising an exception
-        logger.warning("Returning empty results due to search error")
-        return []
+    # If all methods fail
+    logger.error("All search methods failed")
+    logger.warning("Returning empty results due to search error")
+    return []
 
 def generate_response(query: str, context_chunks: List[Dict[str, Any]]) -> str:
     """
