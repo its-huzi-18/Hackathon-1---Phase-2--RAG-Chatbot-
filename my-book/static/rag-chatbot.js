@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .rag-chat-header {
-      background: #0b7b41; /* WhatsApp header green */
+      background: #4f5cf5; /* Original blue color from your website */
       color: white;
       padding: 12px 15px;
       border-top-left-radius: 10px;
@@ -124,19 +124,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .rag-user-message {
-      background: #0b7b41; /* WhatsApp green color */
+      background: #4f5cf5; /* Blue color from your website */
       color: white;
       align-self: flex-end; /* Right align user messages */
       margin-left: auto;
       text-align: right;
-      border-bottom-right-radius: 4px; /* Rounded corners like WhatsApp */
+      border-bottom-right-radius: 4px; /* Rounded corners */
     }
 
     .rag-assistant-message {
-      background: #e5ddd5; /* WhatsApp chat background color */
+      background: #e3f2fd; /* Light blue background */
       color: #333;
       align-self: flex-start; /* Left align assistant messages */
-      border-bottom-left-radius: 4px; /* Rounded corners like WhatsApp */
+      border-bottom-left-radius: 4px; /* Rounded corners */
     }
 
     .rag-typing-indicator {
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     .rag-send-btn {
       padding: 10px 16px;
-      background: #0b7b41; /* WhatsApp green */
+      background: #4f5cf5; /* Blue color from your website */
       color: white;
       border: none;
       border-radius: 18px;
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .rag-send-btn:hover:not(:disabled) {
-      background: #0a6a39;
+      background: #3a46c4;
     }
 
     .rag-send-btn:disabled {
