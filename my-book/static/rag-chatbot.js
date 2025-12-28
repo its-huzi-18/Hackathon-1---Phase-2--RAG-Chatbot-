@@ -113,7 +113,6 @@ function initializeRAGChatbot() {
       border-radius: 18px;
       max-width: 80%;
       word-wrap: break-word;
-      align-self: flex-start;
       box-shadow: 0 1px 1px rgba(0,0,0,0.1);
       font-size: 14px;
       line-height: 1.4;
@@ -124,15 +123,21 @@ function initializeRAGChatbot() {
       color: white;
       align-self: flex-end;
       margin-left: auto;
+      margin-right: 0;
       text-align: right;
       border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 18px;
     }
 
     .rag-assistant-message {
       background: #e3f2fd;
       color: #333;
       align-self: flex-start;
+      margin-right: auto;
+      margin-left: 0;
+      text-align: left;
       border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 18px;
     }
 
     .rag-typing-indicator {
@@ -201,7 +206,7 @@ function initializeRAGChatbot() {
 
   // Add initial message
   const initialMessageDiv = document.createElement('div');
-  initialMessageDiv.className = 'rag-message assistant-message';
+  initialMessageDiv.className = 'rag-message rag-assistant-message';
   initialMessageDiv.textContent = 'Hello! I\'m your book assistant. Ask me anything about the book content!';
   chatMessages.appendChild(initialMessageDiv);
   scrollToBottom();
@@ -218,7 +223,7 @@ function initializeRAGChatbot() {
   // Add message to chat
   function addMessage(sender, text) {
     const messageDiv = document.createElement('div');
-    messageDiv.className = `rag-message ${sender}-message`;
+    messageDiv.className = `rag-message rag-${sender}-message`;
     messageDiv.textContent = text;
     chatMessages.appendChild(messageDiv);
     scrollToBottom();
