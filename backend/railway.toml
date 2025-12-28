@@ -3,9 +3,10 @@
 builder = "NIXPACKS"
 workdir = "."
 buildCommand = "pip install -r requirements.txt"
+startCommand = "python start_server.py"
 
 [deploy]
-startCommand = "uvicorn app:app --host 0.0.0.0 --port $PORT"
+startCommand = "python start_server.py"
 healthcheckPath = "/"
 numReplicas = 1
 region = "us-west"

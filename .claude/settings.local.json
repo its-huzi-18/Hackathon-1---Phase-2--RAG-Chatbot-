@@ -119,7 +119,9 @@
       "Bash(python -m uvicorn api:app --host 0.0.0.0 --port 8000)",
       "Bash(python test_chatbot.py)",
       "Bash(curl http://localhost:8000/health)",
-      "Bash(curl -X POST http://localhost:8000/ask -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is this book about?\"\"}\")"
+      "Bash(curl -X POST http://localhost:8000/ask -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is this book about?\"\"}\")",
+      "Bash(curl -X POST http://0.0.0.0:8000/ask -H \"Content-Type: application/json\" -d \"{\"\"question\"\": \"\"What is this book about?\"\"}\")",
+      "Bash(python test_api_endpoints.py)"
     ],
     "deny": [],
     "ask": []

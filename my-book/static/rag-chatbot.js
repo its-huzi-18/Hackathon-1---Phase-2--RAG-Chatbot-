@@ -225,7 +225,11 @@ document.addEventListener('DOMContentLoaded', function() {
     addTypingIndicator();
 
     try {
-      const response = await fetch(apiUrl + '/ask', {
+      // Ensure proper URL construction without double slashes
+      const cleanApiUrl = apiUrl.replace(/\/+$/, ''); // Remove trailing slashes
+      const fullUrl = cleanApiUrl + '/ask';
+
+      const response = await fetch(fullUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
